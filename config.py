@@ -12,10 +12,10 @@ if secret.DEBUG:
     LOG_CHANNEL = _test_channel
     GAME = 'with bugs'
 else:
-    EVENT_CHANNEL = 502824760036818964
-    EVENT_ARCHIVE_CHANNEL = 528914471700267029
-    COMMAND_CHANNEL = 528980590930821131
-    LOG_CHANNEL = 621066917339201547
+    EVENT_CHANNEL = 824379373217775698
+    EVENT_ARCHIVE_CHANNEL = 824379430105251870
+    COMMAND_CHANNEL = 824379459918233611
+    LOG_CHANNEL = 824379530608508938
     GAME = 'with events'
 
 JSON_FILEPATH = {
@@ -52,12 +52,23 @@ EXTRA_EMOJIS = [
     # ATTENDANCE_EMOJI
 ]
 
-PLATOON_SIZES = ['1PLT', '2PLT', 'sideop', 'WW2side']
+PLATOON_SIZES = ['SQUAD', '1PLT', '2PLT']
 
 # Dummy: an empty spacer. An embed can only have either one or three
 # items on a line.
 # Additional roles are automatically added at the end of the group list
 DEFAULT_GROUPS = {
+
+    "SQUAD": [
+        "1st Platoon",
+        "Dummy",
+        "Dummy",
+
+        "Alpha",
+        "Alpha",
+        "Dummy"
+    ],
+
     "1PLT": [
         "Company",
         "1st Platoon",
@@ -79,32 +90,26 @@ DEFAULT_GROUPS = {
         "2nd Platoon",
         "Echo",
         "Foxtrot"
-    ],
-    "sideop": [
-        "Company",
-        "Alpha",
-    ],
-    "WW2side": [
-        "Company",
-        "1st Platoon",
-    ],
+    ]
 }
 
 # NOTE: role name equals emote name
 DEFAULT_ROLES = {
+    "SQUAD": {
+        "ZEUS": "1st Platoon",
+        "A1": "Alpha",
+        "A2": "Alpha",
+    },
     "1PLT": {
         "ZEUS": "Company",
         "1PLT": "1st Platoon",
         "FAC": "1st Platoon",
         "RTO": "1st Platoon",
 
-        "ASL": "Alpha",
         "A1": "Alpha",
         "A2": "Alpha",
-        "BSL": "Bravo",
         "B1": "Bravo",
         "B2": "Bravo",
-        "CSL": "Charlie",
         "C1": "Charlie",
         "C2": "Charlie",
     },
@@ -115,36 +120,16 @@ DEFAULT_ROLES = {
         "RTO": "Company",
 
         "1PLT": "1st Platoon",
-        "ASL": "Alpha",
         "A1": "Alpha",
-        "BSL": "Bravo",
         "B1": "Bravo",
-        "CSL": "Charlie",
         "C1": "Charlie",
-        "DSL": "Delta",
         "D1": "Delta",
 
         "2PLT": "2nd Platoon",
-        "ESL": "Echo",
         "E1": "Echo",
-        "FSL": "Foxtrot",
         "F1": "Foxtrot",
-        "GSL": "Golf",
         "G1": "Golf",
-        "HSL": "Hotel",
         "H1": "Hotel",
-    },
-    "sideop": {
-        "ZEUS": "Company",
-        "ASL": "Alpha",
-        "A1": "Alpha",
-        "A2": "Alpha",
-    },
-    "WW2side": {
-        "ZEUS": "Company",
-        "1PLT": "1st Platoon",
-        "ASL": "1st Platoon",
-        "BSL": "1st Platoon",
     },
 }
 
@@ -155,14 +140,15 @@ EMOJI_ZEUS = "ZEUS"
 # a user defined in secrets.py gets notified about that.
 SIGNOFF_NOTIFY_TIME = timedelta(days=1)
 SIGNOFF_NOTIFY_ROLES = {
+    "SQUAD": [
+        "A1"
+    ],
     "1PLT": [
-        "1PLT", "HQ", "ASL", "BSL", "CSL"
+        "1PLT", "HQ", "A1", "B1", "C1"
     ],
     "2PLT": [
         "CO", "HQ", "1PLT", "2PLT",
-        "ASL", "BSL", "CSL", "DSL",
-        "ESL", "FSL", "GSL", "HSL",
+        "A1", "B1", "C1", "D1",
+        "E1", "F1", "G1", "H1",
     ],
-    "sideop": [],
-    "WW2side": [],
 }
