@@ -31,10 +31,13 @@ class EventDateTime(Converter):
     async def convert(self, ctx: Context, arg: str) -> datetime:
         try:
             date = datetime.strptime(arg, '%Y-%m-%d')
+            event_time = cfg.WEEK_TIMES.get(date.isoweekday(), cfg.DEFAULT_TIME)
+            Hour = event_time.hour
+            Minutes = event_time.minute
         except ValueError:
             raise BadArgument("Invalid date format {}. Has to be YYYY-MM-DD"
                               .format(arg))
-        return date.replace(hour=18, minute=30)
+        return date.replace(hour = Hour, minute = Minutes)
 
 
 class EventDate(Converter):
@@ -328,7 +331,7 @@ class CommandListener(Cog):
         delta = end - start
         days: List[date] = []
         past_days: List[date] = []
-        weekend = [5, 6, 7]
+        weekend = [5, 6]
         day: date
         for i in range(delta.days + 1):
             day = start + timedelta(days=i)
@@ -368,7 +371,7 @@ class CommandListener(Cog):
             return m.author == ctx.message.author \
                    and m.channel == ctx.channel
 
-        event_time = time(hour=18, minute=30)
+        event_time = cfg.WEEK_TIMES.get(day.isoweekday(), cfg.DEFAULT_TIME)
         with_time = [datetime.combine(day, event_time) for day in days]
 
         try:

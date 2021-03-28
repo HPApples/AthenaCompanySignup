@@ -1,5 +1,4 @@
-from datetime import timedelta
-
+from datetime import date, datetime, time, timedelta
 import secret
 
 VERSION = 8
@@ -151,4 +150,10 @@ SIGNOFF_NOTIFY_ROLES = {
         "A1", "B1", "C1", "D1",
         "E1", "F1", "G1", "H1",
     ],
+}
+
+DEFAULT_TIME = time(hour=18, minute=45)
+WEEK_TIMES = {
+  5: time(hour=18, minute=45),  # friday
+  6: time(hour=17, minute=45),  # saturday
 }
