@@ -370,9 +370,14 @@ class CommandListener(Cog):
         def pred(m):
             return m.author == ctx.message.author \
                    and m.channel == ctx.channel
+        with_time = []
+        for day in days:
+            event_time = cfg.WEEK_TIMES.get(day.isoweekday(), cfg.DEFAULT_TIME)
+            with_time.append(datetime.combine(day, event_time))
 
-        event_time = cfg.WEEK_TIMES.get(day.isoweekday(), cfg.DEFAULT_TIME)
-        with_time = [datetime.combine(day, event_time) for day in days]
+
+        #event_time = cfg.WEEK_TIMES.get(day.isoweekday(), cfg.DEFAULT_TIME)
+        #with_time = [datetime.combine(day, event_time) for day in days]
 
         try:
             while True:
@@ -787,24 +792,26 @@ class CommandListener(Cog):
 
     # Delete event command
     @command(aliases=['d'])
-    async def delete(self, ctx: Context, event: EventEvent):
+    async def delete(self, ctx: Context, *event: EventEvent):
         """
         Delete event.
 
-        Example: delete 1
+        Example: delete 1 3 2
         """
-        await self._delete(event)
-        await ctx.send("Event {} removed".format(event))
+        for i in event:
+            await self._delete(i)
+            await ctx.send("Event {} removed".format(i))
 
     @command()
-    async def deletearchived(self, ctx: Context, event: ArchivedEvent):
+    async def deletearchived(self, ctx: Context, *event: ArchivedEvent):
         """
         Delete archived event.
 
         Example: deletearchived 1
         """
-        await self._delete(event, archived=True)
-        await ctx.send("Event {} removed from archive".format(event))
+        for i in event:
+            await self._delete(i, archived=True)
+            await ctx.send("Event {} removed from archive".format(i))
 
     @command(name="list", aliases=["ls"])
     async def listEvents(self, ctx: Context):
